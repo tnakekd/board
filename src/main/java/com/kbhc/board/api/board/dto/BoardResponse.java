@@ -7,7 +7,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -28,6 +31,8 @@ public class BoardResponse {
     private String regDate;
     @Schema(description = "수정일")
     private String modDate;
+    @Schema(description = "답변 목록")
+    private List<CommentDto> comments = new ArrayList<>();
 
     public BoardResponse(Board board) {
         this.id = board.getId();
@@ -42,6 +47,10 @@ public class BoardResponse {
         if (Objects.nonNull(board.getModDate())) {
             this.modDate = board.getModDate().format(formatter);
         }
+        this.comments = board.getBoardComments()
+                .stream()
+                .map(CommentDto::new)
+                .collect(Collectors.toList());
     }
 
 }
