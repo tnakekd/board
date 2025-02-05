@@ -23,8 +23,7 @@ public class CommentController {
     public ResponseEntity<Response<Boolean>> createComment(
             @RequestBody CommentRequest request) throws Exception {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String name = authentication.getName();
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.createComment(request));
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.createComment(request, authentication.getName()));
     }
 
 }

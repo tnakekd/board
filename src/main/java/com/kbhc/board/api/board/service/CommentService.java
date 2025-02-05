@@ -5,6 +5,6 @@ import com.kbhc.board.core.model.Response;
 
 public interface CommentService {
 
-    Response<Boolean> createComment(CommentRequest request);
+    Response<Boolean> createComment(CommentRequest request, String writerEmail);
 
 }

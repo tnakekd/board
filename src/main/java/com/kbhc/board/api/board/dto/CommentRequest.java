@@ -13,7 +13,5 @@ public class CommentRequest {
     private Long boardId;
     @Schema(description = "답변 내용")
     private String content;
-    @Schema(description = "작성자 id")
-    private Long writer;
 
 }

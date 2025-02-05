@@ -6,6 +6,8 @@ import com.kbhc.board.api.board.service.BoardService;
 import com.kbhc.board.core.model.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,10 +25,10 @@ public class BoardController {
     public ResponseEntity<Response<Boolean>> createBoard(
             @RequestParam("title") String title,
             @RequestParam("content") String content,
-            @RequestParam("writer") Long writer,
             @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
-        BoardRequest request = new BoardRequest(title, content, writer);
-        return ResponseEntity.status(HttpStatus.OK).body(boardService.createBoard(request, file));
+        BoardRequest request = new BoardRequest(title, content);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return ResponseEntity.status(HttpStatus.OK).body(boardService.createBoard(request, file, authentication.getName()));
     }
 
     @GetMapping("/{id}")

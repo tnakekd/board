@@ -32,11 +32,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Response<Boolean> createComment(CommentRequest request) {
+    public Response<Boolean> createComment(CommentRequest request, String createComment) {
 
         BoardComment boardComment = new BoardComment(request);
 
-        Member member = memberRepository.findById(request.getWriter()).orElse(null);
+        Member member = memberRepository.findByEmail(createComment);
 
         if (Objects.isNull(member)) {
             return Response.failure(FAILURE_USER_NOT_FOUND.getValue());

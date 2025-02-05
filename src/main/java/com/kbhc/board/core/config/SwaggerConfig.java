@@ -1,6 +1,7 @@
 package com.kbhc.board.core.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ public class SwaggerConfig {
                                 .contact(new io.swagger.v3.oas.models.info.Contact()
                                         .name("Developer")
                                         .email("tnakekd@naver.com")))
+                        .addSecurityItem(new SecurityRequirement().addList("basicAuth"))
                         .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("apiKey", new SecurityScheme()
                                 .type(SecurityScheme.Type.APIKEY)

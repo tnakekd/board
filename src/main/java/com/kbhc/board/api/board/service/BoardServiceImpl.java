@@ -40,11 +40,11 @@ public class BoardServiceImpl implements BoardService {
 
     @Transactional
     @Override
-    public Response<Boolean> createBoard(BoardRequest request, MultipartFile file) throws Exception {
+    public Response<Boolean> createBoard(BoardRequest request, MultipartFile file, String writerEmail) throws Exception {
 
         Board board = new Board(request);
 
-        Member member = memberRepository.findById(request.getWriter()).orElse(null);
+        Member member = memberRepository.findByEmail(writerEmail);
 
         if (Objects.isNull(member)) {
             return Response.failure(FAILURE_USER_NOT_FOUND.getValue());
