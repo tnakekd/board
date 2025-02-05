@@ -29,12 +29,14 @@ public class SwaggerConfig {
                                 .contact(new io.swagger.v3.oas.models.info.Contact()
                                         .name("Developer")
                                         .email("tnakekd@naver.com")))
-                        .addSecurityItem(new SecurityRequirement().addList("basicAuth"))
+                        .addSecurityItem(new SecurityRequirement().addList("apiKey"))
                         .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("apiKey", new SecurityScheme()
                                 .type(SecurityScheme.Type.APIKEY)
                                 .in(SecurityScheme.In.HEADER)
-                                .name("Authorization")))
+                                .name("Authorization")
+                                .description("Base64 encoded username:password")
+                        ))
                         ;
         }
 

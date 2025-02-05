@@ -3,6 +3,7 @@ package com.kbhc.board.api.board.dto;
 import com.kbhc.board.api.board.entity.Board;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.format.DateTimeFormatter;
@@ -10,6 +11,7 @@ import java.util.Objects;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class BoardResponse {
 
     @Schema(description = "식별자")
