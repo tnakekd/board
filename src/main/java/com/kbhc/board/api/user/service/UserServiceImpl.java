@@ -5,7 +5,6 @@ import com.kbhc.board.api.user.dto.UserRequest;
 import com.kbhc.board.api.user.entity.Member;
 import com.kbhc.board.api.user.repository.MemberRepository;
 import com.kbhc.board.core.model.Response;
-import com.kbhc.board.core.util.CommonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response<Long> createUser(UserRequest request) throws Exception {
+        if (memberRepository.existsByEmail(request.getEmail())) {
+            return Response.failure(FAILURE_USER_DUPLICATE_EMAIL.getValue());
+        }
         Member member = memberRepository.save(new Member(request));
         return Response.success(SUCCESS_USER_SAVE.getValue(), member.getId());
     }

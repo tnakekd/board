@@ -3,6 +3,7 @@ package com.kbhc.board.api.user.entity;
 import com.kbhc.board.api.board.entity.Board;
 import com.kbhc.board.api.board.entity.BoardComment;
 import com.kbhc.board.api.user.dto.UserRequest;
+import com.kbhc.board.core.enums.Role;
 import com.kbhc.board.core.util.CommonUtil;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -24,7 +25,7 @@ public class Member {
     private String nickname;
     private String email;
     private String password;
-    private String role;
+    private Role role;
 
     @OneToMany(mappedBy = "member")
     private List<Board> boards;

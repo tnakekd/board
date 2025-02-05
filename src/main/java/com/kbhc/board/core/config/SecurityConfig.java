@@ -33,6 +33,8 @@ public class SecurityConfig {
                                         ,"/health-check"
                                         ,"/api/**")
                                 .permitAll()
+                                .requestMatchers("/api/board/**")
+                                .hasAnyRole("USER", "ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )
