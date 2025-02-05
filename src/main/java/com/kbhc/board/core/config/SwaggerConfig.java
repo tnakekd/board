@@ -1,6 +1,7 @@
 package com.kbhc.board.core.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +28,11 @@ public class SwaggerConfig {
                                 .contact(new io.swagger.v3.oas.models.info.Contact()
                                         .name("Developer")
                                         .email("tnakekd@naver.com")))
+                        .components(new io.swagger.v3.oas.models.Components()
+                        .addSecuritySchemes("apiKey", new SecurityScheme()
+                                .type(SecurityScheme.Type.APIKEY)
+                                .in(SecurityScheme.In.HEADER)
+                                .name("Authorization")))
                         ;
         }
 

@@ -25,6 +25,7 @@ public class Member {
     private String nickname;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @OneToMany(mappedBy = "member")

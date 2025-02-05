@@ -1,8 +1,8 @@
 package com.kbhc.board.api.user.controller;
 
 import com.kbhc.board.api.user.dto.LoginRequest;
+import com.kbhc.board.api.user.dto.LoginResponse;
 import com.kbhc.board.api.user.dto.UserRequest;
-import com.kbhc.board.api.user.entity.Member;
 import com.kbhc.board.api.user.service.UserService;
 import com.kbhc.board.core.model.Response;
 import jakarta.validation.Valid;
@@ -31,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Response<Boolean>> login(
+    public ResponseEntity<Response<LoginResponse>> login(
             @Valid @RequestBody LoginRequest request) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findUser(request));
     }
