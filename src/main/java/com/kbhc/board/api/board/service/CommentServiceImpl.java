@@ -9,6 +9,7 @@ import com.kbhc.board.api.user.entity.Member;
 import com.kbhc.board.api.user.repository.MemberRepository;
 import com.kbhc.board.core.model.Response;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -32,6 +33,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @CacheEvict(value = "boardCache", key = "#request.boardId")
     public Response<Boolean> createComment(CommentRequest request, String createComment) {
 
         BoardComment boardComment = new BoardComment(request);
