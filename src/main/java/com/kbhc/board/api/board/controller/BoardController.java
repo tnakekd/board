@@ -4,6 +4,8 @@ import com.kbhc.board.api.board.dto.BoardRequest;
 import com.kbhc.board.api.board.dto.BoardResponse;
 import com.kbhc.board.api.board.service.BoardService;
 import com.kbhc.board.core.model.Response;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/board")
+@Tag(name = "게시판 API", description = "게시글 관련 API")
 public class BoardController {
 
     private final BoardService boardService;
@@ -23,9 +26,9 @@ public class BoardController {
 
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<Response<Boolean>> createBoard(
-            @RequestParam("title") String title,
-            @RequestParam("content") String content,
-            @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
+            @Parameter(description = "제목") @RequestParam("title") String title,
+            @Parameter(description = "내용") @RequestParam("content") String content,
+            @Parameter(description = "첨부파일") @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
         BoardRequest request = new BoardRequest(title, content);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ResponseEntity.status(HttpStatus.OK).body(boardService.createBoard(request, file, authentication.getName()));
@@ -33,23 +36,23 @@ public class BoardController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Response<BoardResponse>> findBoard(
-            @PathVariable(name = "id") Long boardId) throws Exception {
+            @Parameter(description = "게시글 식별 ID", required = true) @PathVariable(name = "id") Long boardId) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(boardService.findBoard(boardId));
     }
 
     @PutMapping(value = "/{id}", consumes = "multipart/form-data")
     public ResponseEntity<Response<BoardResponse>> updateBoard(
-            @PathVariable(name = "id") Long boardId,
-            @RequestParam("title") String title,
-            @RequestParam("content") String content,
-            @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
+            @Parameter(description = "게시글 식별 ID", required = true) @PathVariable(name = "id") Long boardId,
+            @Parameter(description = "제목") @RequestParam("title") String title,
+            @Parameter(description = "내용") @RequestParam("content") String content,
+            @Parameter(description = "첨부파일") @RequestParam(value = "file", required = false) MultipartFile file) throws Exception {
         BoardRequest request = new BoardRequest(title, content);
         return ResponseEntity.status(HttpStatus.OK).body(boardService.updateBoard(boardId, request, file));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Response<Boolean>> deleteBoard(
-            @PathVariable(name = "id") Long boardId) throws Exception {
+            @Parameter(description = "게시글 식별 ID", required = true) @PathVariable(name = "id") Long boardId) throws Exception {
         return ResponseEntity.status(HttpStatus.OK).body(boardService.deleteBoard(boardId));
     }
 
