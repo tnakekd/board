@@ -32,7 +32,7 @@ public class Board {
     @Column(name = "mod_date")
     private LocalDateTime modDate;
 
-    @OneToMany(mappedBy = "board")
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
     private List<BoardComment> boardComments;
 
     @ManyToOne
@@ -41,8 +41,7 @@ public class Board {
 
     @PrePersist
     public void prePersist() {
-        LocalDateTime now = LocalDateTime.now();
-        this.regDate = now;
+        this.regDate = LocalDateTime.now();
     }
 
     @PreUpdate
