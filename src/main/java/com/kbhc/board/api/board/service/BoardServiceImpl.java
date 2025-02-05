@@ -96,7 +96,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    @Cacheable(value = "boardCache", key = "#boardId", cacheManager = "cacheManager")
+    @Cacheable(value = "board", key = "#boardId", cacheManager = "cacheManager")
     public Response<BoardResponse> findBoard(Long boardId) throws Exception {
 
         Board board = boardRepository.findById(boardId).orElse(null);
@@ -109,7 +109,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    @CachePut(value = "boardCache", key = "#id")
+    @CachePut(value = "board", key = "#id")
     public Response<BoardResponse> updateBoard(Long id, BoardRequest request, MultipartFile file) throws Exception {
         Board board = boardRepository.findById(id).orElse(null);
 
@@ -143,7 +143,7 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    @CacheEvict(value = "boardCache", key = "#id")
+    @CacheEvict(value = "board", key = "#id")
     public Response<Boolean> deleteBoard(Long id) throws Exception {
 
         Board board = boardRepository.findById(id).orElse(null);

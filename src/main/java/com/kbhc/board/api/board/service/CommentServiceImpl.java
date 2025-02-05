@@ -33,7 +33,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    @CacheEvict(value = "boardCache", key = "#request.boardId")
+    @CacheEvict(value = "board", key = "#request.boardId")
     public Response<Boolean> createComment(CommentRequest request, String createComment) {
 
         BoardComment boardComment = new BoardComment(request);
