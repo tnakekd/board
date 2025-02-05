@@ -17,6 +17,7 @@ public enum Message {
     SUCCESS_BOARD_SEARCH(3001, "게시글 조회 성공"),
     SUCCESS_BOARD_UPDATE(3002, "게시글 수정 성공"),
     SUCCESS_BOARD_DELETE(3003, "게시글 삭제 성공"),
+    SUCCESS_BOARD_COMMENT_SAVE(3004, "답변 등록 성공"),
 
 
     FAILURE_BOARD_SAVE(4000, "게시글 등록 실패"),
