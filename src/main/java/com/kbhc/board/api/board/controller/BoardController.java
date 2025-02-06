@@ -41,7 +41,7 @@ public class BoardController {
     }
 
     @PutMapping(value = "/{id}", consumes = "multipart/form-data")
-    public ResponseEntity<Response<BoardResponse>> updateBoard(
+    public ResponseEntity<Response<Boolean>> updateBoard(
             @Parameter(description = "게시글 식별 ID", required = true) @PathVariable(name = "id") Long boardId,
             @Parameter(description = "제목") @RequestParam("title") String title,
             @Parameter(description = "내용") @RequestParam("content") String content,

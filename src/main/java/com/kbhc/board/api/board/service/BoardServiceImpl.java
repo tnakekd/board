@@ -109,8 +109,8 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    @CachePut(value = "board", key = "#id")
-    public Response<BoardResponse> updateBoard(Long id, BoardRequest request, MultipartFile file) throws Exception {
+    @CacheEvict(value = "board", key = "#id")
+    public Response<Boolean> updateBoard(Long id, BoardRequest request, MultipartFile file) throws Exception {
         Board board = boardRepository.findById(id).orElse(null);
 
         if (Objects.isNull(board)) {
@@ -122,7 +122,9 @@ public class BoardServiceImpl implements BoardService {
 
         if (Objects.nonNull(file) && !file.isEmpty()) {
 
-            this.deleteFile(board.getFileName());
+            if (Objects.nonNull(board.getFileName())) {
+                this.deleteFile(board.getFileName());
+            }
 
             String fileName = null;
 
@@ -139,7 +141,7 @@ public class BoardServiceImpl implements BoardService {
 
         boardRepository.save(board);
 
-        return Response.success(SUCCESS_BOARD_UPDATE.getValue(), new BoardResponse(board));
+        return Response.success(SUCCESS_BOARD_UPDATE.getValue(), true);
     }
 
     @Override

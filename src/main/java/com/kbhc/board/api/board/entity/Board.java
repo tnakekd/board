@@ -32,7 +32,7 @@ public class Board {
     @Column(name = "mod_date")
     private LocalDateTime modDate;
 
-    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<BoardComment> boardComments;
 
     @ManyToOne
